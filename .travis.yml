@@ -1,0 +1,16 @@
+language: generic
+sudo: required
+services:
+  - docker
+before_install:
+  - docker build -t julundy/react-test -f ./client/Dockerfile.dev ./client
+script:
+  - docker run -e CI=true julundy/react-test npm test 
+
+after_success:
+  - docker build -t julundy/multi-client ./client
+  - docker build -t julundy/multi-server ./server
+  - docker build -t julundy/multi-nginx ./nginx
+  - docker build -t julundy/multi-worker ./worker
+  # Log into docker CLI
+  
