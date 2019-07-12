@@ -13,4 +13,9 @@ after_success:
   - docker build -t julundy/multi-nginx ./nginx
   - docker build -t julundy/multi-worker ./worker
   # Log into docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push julundy/multi-client
+  - docker push julundy/multi-server
+  - docker push julundy/multi-nginx
+  - docker push julundy/multi-worker
   
